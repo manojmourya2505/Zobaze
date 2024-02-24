@@ -20,11 +20,30 @@ class EmployeeViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val employeesList = employeeRepository.getEmployees()
-                val filteredEmployees = employeesList.filter { employee ->
+
+                val employeesMod3 = mutableListOf<Employee>()
+                val employeesMod7 = mutableListOf<Employee>()
+                val employeesMod4 = mutableListOf<Employee>()
+
+                for (employee in employeesList) {
                     val id = employee.id
-                    id % 3 == 0 || id % 7 == 0 || id % 4 == 0
+                    if (id % 3 == 0) {
+                        employeesMod3.add(employee)
+                    }
+                    if (id % 7 == 0) {
+                        employeesMod7.add(employee)
+                    }
+                    if (id % 4 == 0) {
+                        employeesMod4.add(employee)
+                    }
                 }
-                _employees.postValue(filteredEmployees)
+
+                val concatenatedList = mutableListOf<Employee>()
+                concatenatedList.addAll(employeesMod3)
+                concatenatedList.addAll(employeesMod7)
+                concatenatedList.addAll(employeesMod4)
+
+                _employees.postValue(concatenatedList)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
