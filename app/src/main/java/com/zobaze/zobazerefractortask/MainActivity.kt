@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: EmployeeViewModel
     private lateinit var adapter: EmployeeAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
