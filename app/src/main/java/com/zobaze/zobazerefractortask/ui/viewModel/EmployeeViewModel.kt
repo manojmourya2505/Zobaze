@@ -5,10 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.HttpException
 import com.zobaze.zobazerefractortask.data.model.Employee
 import com.zobaze.zobazerefractortask.data.repository.EmployeeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class EmployeeViewModel : ViewModel() {
 
@@ -50,6 +52,12 @@ class EmployeeViewModel : ViewModel() {
                 _employees.postValue(concatenatedList)
             } catch (e: NetworkErrorException) {
                 _error.postValue("Network error occurred: ${e.message}")
+                e.printStackTrace()
+            } catch (e: HttpException) {
+                _error.postValue("${e.message} : Something went wrong")
+                e.printStackTrace()
+            } catch (e: IOException) {
+                _error.postValue("Please check your network connection")
                 e.printStackTrace()
             } catch (e: Exception) {
                 _error.postValue("An unexpected error occurred: ${e.message}")
