@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.error.observe(this) { errorMessage ->
-            // Show error message to the user (e.g., using a toast or Snackbar)
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
