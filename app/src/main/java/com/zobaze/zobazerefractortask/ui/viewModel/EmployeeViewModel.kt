@@ -1,5 +1,6 @@
 package com.zobaze.zobazerefractortask.ui.viewModel
 
+import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,9 @@ class EmployeeViewModel : ViewModel() {
 
     private val _employees = MutableLiveData<List<Employee>>()
     val employees: LiveData<List<Employee>>get() = _employees
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
 
     fun getEmployees() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -44,7 +48,11 @@ class EmployeeViewModel : ViewModel() {
                 concatenatedList.addAll(employeesMod4)
 
                 _employees.postValue(concatenatedList)
+            } catch (e: NetworkErrorException) {
+                _error.postValue("Network error occurred: ${e.message}")
+                e.printStackTrace()
             } catch (e: Exception) {
+                _error.postValue("An unexpected error occurred: ${e.message}")
                 e.printStackTrace()
             }
         }

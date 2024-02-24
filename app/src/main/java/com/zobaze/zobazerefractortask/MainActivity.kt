@@ -1,6 +1,7 @@
 package com.zobaze.zobazerefractortask
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +34,11 @@ class MainActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.employees.observe(this) { employees ->
             adapter.updateData(employees)
+        }
+
+        viewModel.error.observe(this) { errorMessage ->
+            // Show error message to the user (e.g., using a toast or Snackbar)
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
 }
