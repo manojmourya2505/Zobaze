@@ -60,6 +60,10 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
 
-    // RecyclerView (if needed)
+    // RecyclerView
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
+    
+    //responsive design
+    implementation ("com.intuit.sdp:sdp-android:1.1.0")
+
 }
